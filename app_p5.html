@@ -1,199 +1,45 @@
-<!doctype html>
-<html class="no-js" lang="pl">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>wersja p5.js</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
 
-    <!-- Umieść favicon.ico w głównym katalogu -->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Tic Tac Toe</title>
 
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/main.css">
-  </head>
-  <body>
-    <!--[if lte IE 9]>
-    <p class="browserupgrade">
-      Używasz <strong>przestarzałej</strong> przeglądarki.
-      Zalecamy <a href="https://browsehappy.com/">aktualizację przeglądarki</a>
-      w celu polepszenia obsługi najnowszych standardów i podniesienia poziomu bezpieczeństwa.</p>
-    <![endif]-->
+  <link rel="stylesheet" href="style.css">
+<link rel="Shortcut icon" href="favicon.ico" />
+</head>
 
-    <!-- Tutaj dodajesz swój kod -->
-    <!-- Tutaj dodajesz swój kod -->
-    <h1>Projekt Kółko i krzyżyk</h1>
-    <div>
+<body>
+	<h1>Projekt Kółko i krzyżyk</h1>
+ <div>
       <ul class="menu">
         <li><a href="index.html">Strona główna</a></li>
         <li><a href="app_jq.html">Wersja jQuery</a></li>
         <li><a href="app_p5.html">Wersja p5js</a></li>
       </ul>
     </div>
+	<table>
+		<tr>
+			<td class="cell" id="0"></td>
+			<td class="cell" id="1"></td>
+			<td class="cell" id="2"></td>
+		</tr>
+		<tr>
+			<td class="cell" id="3"></td>
+			<td class="cell" id="4"></td>
+			<td class="cell" id="5"></td>
+		</tr>
+		<tr>
+			<td class="cell" id="6"></td>
+			<td class="cell" id="7"></td>
+			<td class="cell" id="8"></td>
+		</tr>
+	</table>
+	<div class="endgame">
+		<div class="text"></div>
+	</div>
+	<button onClick="startGame()">Replay</button>
 
-<input type="button" value="Restart" onClick="location.reload();" />
-	
-
-  
-    <!-- skrypt umożliwiający sprawdzanie możliwośći przeglądarki -->
-    <script src="js/vendor/modernizr-3.5.0.min.js"></script>
-    <!--biblioteka jQuery-->
-    <!--<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>-->
-    <!--jeżeli nie pobrano jQuery z sieci, spróbuj załadować ją z podfolderu js -->
-    <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
-    <script src="js/plugins.js"></script>
-    <!--biblioteka p5js-->
-    <script src="js/vendor/p5.min.js"></script>
-    <script src="js/vendor/p5.dom.min.js"></script>
-    <script src="js/vendor/p5.sound.min.js"></script>
-    <!-- ewentualny kod JS ogólny -->
-    <script src="js/main.js"></script>
-    <!--kod aplikacji w p5js-->
-    <script src="js/app_p5.js"></script>
-<style>
-#game {
-  
-  width: 300px
-  height: 300px;
-  border: 1px  ;
-  background: ;
-  padding: 10px;
-  float: center;
-}
-#game div {
-  clear: both;
-}
-#game button {
-  display: block;
-  float: left;
-  width: 50px;
-  height: 50px;
-  margin: 5px 10px;
-}
-#gameActionDisplay {
-  padding: 20px 10px;
- 
-}
-</style>
-
-<div id="game">
-
-<div>
-  <button></button>
-  <button></button>
-  <button></button>
-</div>
-
-<div>
- <button></button>
-  <button></button>
-  <button></button>
-</div>
-
-<div>
-  <button></button>
-  <button></button>
-  <button></button>
-</div>
-</div>
-
-<div id="gameActionDisplay"></div>
-</div>
-
-<script>
-var Display = function(displayElement) {
-  var display = displayElement;
-  function setText(message) {
-    display.innerText = message;
-  }
-  return {setMessage: setText};
-};
-function isValid(btn) {
-  return btn.innerText.length == 0;
-}
-function checkScore(btn, squares) {
-  console.log("click");
-  console.log(btn);
-  console.log(squares);
-}
-function setMark(btn, players, currentTurn) {
-  btn.innerText = players[currentTurn];
-}
-function checkForWinner(squares, players, currentTurn) {
-  if (squares[0].innerText == players[currentTurn] &&
-      squares[1].innerText == players[currentTurn] &&
-      squares[2].innerText == players[currentTurn])
-    return true;
-  if (squares[3].innerText == players[currentTurn] &&
-      squares[4].innerText == players[currentTurn] &&
-      squares[5].innerText == players[currentTurn])
-    return true;
-  if (squares[6].innerText == players[currentTurn] &&
-      squares[7].innerText == players[currentTurn] &&
-      squares[8].innerText == players[currentTurn])
-    return true;
-  if (squares[0].innerText == players[currentTurn] &&
-      squares[3].innerText == players[currentTurn] &&
-      squares[6].innerText == players[currentTurn])
-    return true;
-  if (squares[1].innerText == players[currentTurn] &&
-      squares[4].innerText == players[currentTurn] &&
-      squares[7].innerText == players[currentTurn])
-    return true;
-  if (squares[2].innerText == players[currentTurn] &&
-      squares[5].innerText == players[currentTurn] &&
-      squares[8].innerText == players[currentTurn])
-    return true;
-  if (squares[0].innerText == players[currentTurn] &&
-      squares[4].innerText == players[currentTurn] &&
-      squares[8].innerText == players[currentTurn])
-    return true;
-  if (squares[2].innerText == players[currentTurn] &&
-      squares[4].innerText == players[currentTurn] &&
-      squares[6].innerText == players[currentTurn])
-    return true;
-  return false;
-}
-function isFullBoard(squares) {
-  for (var i = 0, len = squares.length; i < len; i++)
-    if (squares[i].innerText.length == 0)
-      return false;
-  return true;
-}
-function isDraw(squares) {
-  return (!checkForWinner(squares, ["X"], 0)) && isFullBoard(squares);
-}
-function main() {
-  var squares = document.querySelectorAll("#game button");
-  var players = ["X", "O"];
-  var currentTurn = 0;
-  var isGameOver = false;
-  var display = new Display(document.querySelector("#gameActionDisplay"));
-  display.setMessage("Gracz 'X' zaczyna");
-  for (var i = 0, len = squares.length; i < len; i++)
-    squares[i].addEventListener("click", function(){
-      if (isGameOver)
-        return;
-      if (!isValid(this)) {
-        display.setMessage("Błędny ruch");
-      } else {
-        setMark(this, players, currentTurn);
-        isGameOver = checkForWinner(squares, players, currentTurn);
-        if (isGameOver) {
-          display.setMessage("Gracz '" + players[currentTurn] + "' wygrywa");
-          return;
-        }
-        if (isDraw(squares)) {
-          display.setMessage("Remis");
-          return;
-        }
-        currentTurn += 1;
-        currentTurn %= 2;
-        display.setMessage("Gracz '" + players[currentTurn] + "' rusza się");
-      }
-    });
-}
-(function(){ main();})();
-</script>
-  </body>
+  <script src="script.js"></script>
+</body>
 </html>
